@@ -1,11 +1,12 @@
 {
-  "schemaVersion": "1.0",
-  "id": "dsh-external/dsh-better-sidebar",
+  "schemaVersion": "2.0",
+  "id": "dsh:dsh-external/dsh-better-sidebar",
+  "ecosystem": "dsh",
   "name": "dsh-better-sidebar",
   "displayName": "Better Sidebar",
   "summary": "更好用的右侧边栏工作台：文件树、编辑器、终端、Git、侧边对话、子代理都收在这一栏，会话之间互不干扰。",
   "summaryEn": "A dual workbench for DSH: native right sidebar plus self-drawn bottom panel, with the ctx.betterSidebar service open to every plugin.",
-  "description": "开放的侧边栏底座，向三方插件暴露 ctx.betterSidebar 服务以便注册新侧边栏页面与文件预览器。内置文件渲染/编辑、终端、文件变动、任务、Git 面板与侧边对话，状态按会话存于 localStorage。单 npm 包，host 半身提供 /sidebar/api/* JSON API 与两条 WebSocket，client 半身渲染原生右栏与底部工作台。",
+  "description": "开放的侧边栏底座，向三方插件暴露 ctx.betterSidebar 服务，用于注册新侧边栏页面与文件预览器。内置文件渲染/编辑、终端、文件变动、任务、Git 面板与侧边对话，状态按会话存于 localStorage。单 npm 包：host 半身提供 /sidebar/api/* JSON API 与两条 WebSocket，client 半身渲染原生右栏与底部工作台。",
   "repo": "https://github.com/omdsh-dev/DSH-better-sidebar",
   "homepage": null,
   "author": "omdsh-dev (Oh My DSH)",
@@ -27,19 +28,12 @@
   "license": "MIT",
   "language": "TypeScript",
   "version": "0.28.0",
-  "manifest": {
-    "path": "dsh.plugin.json",
-    "format": "dsh.plugin.json",
-    "id": "dsh-external/dsh-better-sidebar",
-    "manifestVersion": null,
+  "host": {
+    "name": "DeepSeek Harness",
+    "manifestPath": "dsh.plugin.json",
+    "manifestFormat": "dsh.plugin.json",
     "engines": {
       "dsh": ">=0.2.1-rc.1"
-    },
-    "contributes": {
-      "tools": [],
-      "skills": [],
-      "client.main": "./lib/client-registry.js",
-      "main": "./lib/index.js"
     }
   },
   "install": {
@@ -51,69 +45,88 @@
       "硬刷新浏览器（Cmd/Ctrl+Shift+R）"
     ],
     "forbidden": [],
-    "notes": "npm latest 会随宿主版本前移，旧宿主务必按下方矩阵 pin 精确版本。也可让 DSH 自行安装（README 提供 prompt），或克隆仓库跑 scripts/install.sh <version>。"
+    "notes": "npm latest 随宿主版本前移，旧宿主务必按下方矩阵 pin 精确版本。也可让 DSH 自行安装（README 提供 prompt），或克隆仓库跑 scripts/install.sh <version>。"
   },
+  "channels": [
+    {
+      "name": "npm",
+      "trust": "official",
+      "url": "https://www.npmjs.com/package/dsh-better-sidebar",
+      "note": "README 直接引用该 npm 包的版本与下载量徽章，安装命令即 npm 包名"
+    },
+    {
+      "name": "script",
+      "trust": "official",
+      "url": "https://github.com/omdsh-dev/DSH-better-sidebar/blob/main/scripts/install.sh",
+      "note": "install.sh / install.ps1 处理安装 + bundle 注册"
+    }
+  ],
   "compat": [
     {
-      "dsh": "0.2.1-rc.1+",
+      "host": "0.2.1-rc.1+",
       "plugin": "0.28.0",
       "command": "dsh plugin --profile web add dsh-better-sidebar@0.28.0",
       "note": null
     },
     {
-      "dsh": "0.2.1-alpha.5",
+      "host": "0.2.1-alpha.5",
       "plugin": "0.28.0-alpha.0",
       "command": "dsh plugin --profile web add dsh-better-sidebar@0.28.0-alpha.0",
       "note": null
     },
     {
-      "dsh": "0.2.0-rc.2",
+      "host": "0.2.0-rc.2",
       "plugin": "0.26.1",
       "command": "dsh plugin --profile web add dsh-better-sidebar@0.26.1",
       "note": "宿主 npm latest 仍指向 0.2.0-rc.2，不可直装 0.28.0"
     },
     {
-      "dsh": "0.2.0-rc.1",
+      "host": "0.2.0-rc.1",
       "plugin": "0.24.1",
       "command": "dsh plugin --profile web add dsh-better-sidebar@0.24.1",
       "note": null
     },
     {
-      "dsh": "0.1.7-rc.1 ~ 0.1.7 stable",
+      "host": "0.1.7-rc.1 ~ 0.1.7 stable",
       "plugin": "0.22.1",
       "command": "dsh plugin --profile web add dsh-better-sidebar@0.22.1",
       "note": null
     },
     {
-      "dsh": "0.1.7-alpha.x",
+      "host": "0.1.7-alpha.x",
       "plugin": "none",
       "command": null,
       "note": "无兼容版本，需先升级 DSH 到 rc.1"
     },
     {
-      "dsh": "0.1.6 及更早（含 0.1.5 线）",
+      "host": "0.1.6 及更早（含 0.1.5 线）",
       "plugin": "0.19.1",
       "command": "dsh plugin --profile web add dsh-better-sidebar@0.19.1",
       "note": null
     }
   ],
-  "trust": {
-    "npm": "official",
-    "releaseSigned": null,
-    "integrity": null,
-    "notes": "npm 包 dsh-better-sidebar 即本仓库发布（README 直接引用 npm 徽章与安装命令）；仓库无 Release 资产，分发以 npm 为准。"
-  },
   "stats": {
-    "stars": 4388,
+    "stars": 4389,
     "forks": 418,
+    "openIssues": 221,
     "pushedAt": "2026-10-17T16:15:27Z",
-    "createdAt": "2026-08-07T16:04:00Z",
-    "openIssues": 221
+    "createdAt": "2026-08-07T16:04:00Z"
   },
   "links": {
     "changelog": "https://github.com/omdsh-dev/DSH-better-sidebar/blob/main/CHANGELOG.md",
     "externalPluginGuide": "https://github.com/omdsh-dev/DSH-better-sidebar/blob/main/docs/external-plugin-guide.md",
     "npm": "https://www.npmjs.com/package/dsh-better-sidebar"
+  },
+  "ecosystemMeta": {
+    "manifestId": "dsh-external/dsh-better-sidebar",
+    "main": "./lib/index.js",
+    "clientMain": "./lib/client-registry.js",
+    "contributes": {
+      "tools": [],
+      "skills": []
+    },
+    "exposesService": "ctx.betterSidebar",
+    "requires": "DSH 0.2.1-rc.1+；无原生依赖，Node ≥ 20 + pnpm ≥ 10"
   },
   "featured": true,
   "curatedAt": "2026-10-21",

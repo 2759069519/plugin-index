@@ -1,52 +1,66 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://github.com/2759069519/dsh-plugin-index/schema/plugin.schema.json",
-  "title": "DSH Plugin Index Entry",
-  "description": "一条 dsh 插件索引条目。所有字段以插件仓库的 manifest / README / GitHub API 为唯一事实来源，不做推测。",
+  "$id": "https://github.com/2759069519/plugin-index/schema/plugin.schema.json",
+  "title": "Plugin Index Entry",
+  "description": "一条插件索引条目，跨生态通用。所有字段以插件自身的 manifest / README / 托管平台 API 为唯一事实来源，不做推测；取不到就写 null 或空数组。",
   "type": "object",
-  "required": ["id", "name", "summary", "repo", "category", "install", "stats", "curatedAt"],
+  "required": ["schemaVersion", "id", "ecosystem", "name", "summary", "repo", "category", "host", "install", "stats", "curatedAt"],
   "additionalProperties": false,
   "definitions": {
-    "semverLike": {
+    "semverLike": { "type": "string", "pattern": "^v?[0-9]+\\.[0-9]+\\.[0-9]+([.-][0-9A-Za-z.-]+)?$" },
+    "channelName": {
       "type": "string",
-      "pattern": "^v?[0-9]+\\.[0-9]+\\.[0-9]+([.-][0-9A-Za-z.-]+)?$"
+      "enum": ["npm", "pypi", "github", "marketplace", "release", "release-tarball", "script", "container", "local-dir"],
+      "description": "分发渠道。marketplace 指各生态自有商店（VSCode Marketplace / Chrome Web Store / Obsidian 社区插件等）"
     }
   },
   "properties": {
-    "schemaVersion": {
-      "type": "string",
-      "const": "1.0"
-    },
+    "schemaVersion": { "type": "string", "const": "2.0" },
+
     "id": {
       "type": "string",
-      "description": "优先取插件 manifest 的 id；无 manifest 时用 github:owner/repo",
-      "pattern": "^([a-z0-9-]+(\\.[a-z0-9-]+)+|dsh-external\\/[a-z0-9-]+|github:[A-Za-z0-9_.-]+\\/[A-Za-z0-9_.-]+)$"
+      "description": "全局唯一：<ecosystem>:<插件自身标识>。插件有 manifest id 用它，没有则用 owner/repo。加生态前缀以免跨生态撞名。",
+      "pattern": "^[a-z0-9-]+:[A-Za-z0-9_.@/-]+$"
     },
-    "name": {
+
+    "ecosystem": {
       "type": "string",
-      "description": "仓库名，或 npm 包名"
+      "description": "所属插件生态。新生态先在此登记（见 docs/CATEGORY.md），避免同物异名。",
+      "enum": [
+        "dsh",
+        "claude-code",
+        "codex",
+        "vscode",
+        "chrome-extension",
+        "obsidian",
+        "raycast",
+        "neovim",
+        "mcp",
+        "n8n",
+        "figma",
+        "blender",
+        "browser-userscript",
+        "other"
+      ]
     },
+
+    "name": { "type": "string", "description": "仓库名或包名" },
     "displayName": { "type": "string" },
     "summary": {
       "type": "string",
-      "description": "中文一句话说明（<=80 字），供列表与检索使用",
+      "description": "中文一句话说明，列表与检索的唯一展示文案",
       "maxLength": 120
     },
     "summaryEn": { "type": "string" },
-    "description": {
-      "type": "string",
-      "description": "展开说明，来自 README 的事实性要点，不超过 200 字"
-    },
-    "repo": {
-      "type": "string",
-      "format": "uri",
-      "pattern": "^https://github\\.com/"
-    },
-    "homepage": { "type": ["string", "null"], "format": "uri" },
+    "description": { "type": "string", "description": "展开说明，仅写 README 中的事实，<= 200 字" },
+
+    "repo": { "type": "string", "pattern": "^https://(github\\.com|gitlab\\.com)/" },
+    "homepage": { "type": ["string", "null"] },
     "author": { "type": "string" },
+
     "category": {
       "type": "array",
-      "description": "至少一个分类，首个为主分类",
+      "description": "功能分类（跨生态通用词汇），首个为主分类。用于筛选与聚合，不用于描述技术栈。",
       "minItems": 1,
       "uniqueItems": true,
       "items": {
@@ -55,110 +69,103 @@
           "model-provider",
           "sidebar",
           "ui",
+          "editor",
           "terminal",
           "workflow",
+          "automation",
           "tool",
           "developer-tools",
           "media",
           "data",
+          "knowledge",
+          "search",
+          "communication",
           "theme",
           "desktop",
           "integration",
+          "security",
           "other"
         ]
       }
     },
-    "tags": {
-      "type": "array",
-      "items": { "type": "string" }
-    },
+    "tags": { "type": "array", "items": { "type": "string" } },
     "license": { "type": ["string", "null"] },
     "language": { "type": ["string", "null"] },
     "version": { "$ref": "#/definitions/semverLike" },
-    "manifest": {
-      "type": ["object", "null"],
-      "description": "插件清单声明；null 表示仓库内未找到可用清单（可能不是真插件，trust.manifest 记为 missing）",
-      "required": ["path", "format"],
+
+    "host": {
+      "type": "object",
+      "description": "宿主与清单声明：这个插件装进什么、清单长什么样、要求什么宿主版本",
+      "required": ["name"],
       "additionalProperties": false,
       "properties": {
-        "path": { "type": "string" },
-        "format": {
-          "type": "string",
-          "enum": ["dsh-plugin-0.15", "dsh.plugin.json", "package.json:dsh", "none"]
-        },
-        "id": { "type": ["string", "null"] },
-        "manifestVersion": { "type": ["string", "null"] },
+        "name": { "type": "string", "description": "宿主名称，如 DeepSeek Harness / Claude Code / VS Code" },
+        "manifestPath": { "type": ["string", "null"], "description": "清单文件路径；null 表示仓库内未找到" },
+        "manifestFormat": { "type": ["string", "null"], "description": "清单规范标识，如 dsh-plugin-0.15 / vscode-package-json / mcp-server-json" },
         "engines": {
           "type": "object",
+          "description": "宿主版本约束，原样取自清单",
           "additionalProperties": { "type": "string" }
-        },
-        "contributes": {
-          "type": "object",
-          "description": "manifest 声明的能力贡献，如 tools / skills / client 入口",
-          "additionalProperties": true
         }
       }
     },
+
     "install": {
       "type": "object",
       "required": ["preferred", "spec"],
       "additionalProperties": false,
       "properties": {
-        "preferred": {
-          "type": "string",
-          "description": "推荐安装渠道；由插件作者 README 声明决定，不由本索引臆断",
-          "enum": ["npm", "github", "release-tarball", "local-dir", "script"]
-        },
+        "preferred": { "$ref": "#/definitions/channelName" },
         "spec": {
           "type": "string",
-          "description": "安装规格。语义唯一：被 add 的目标，不含 dsh plugin add 前缀"
+          "description": "唯一语义：被安装的目标（包名/仓库/文件/目录），不含任何命令前缀。供 AI 与其他工具直接消费。"
         },
-        "command": {
-          "type": "string",
-          "description": "完整可直接执行的命令"
-        },
-        "commands": {
-          "type": "array",
-          "items": { "type": "string" }
-        },
+        "command": { "type": ["string", "null"], "description": "完整可执行命令" },
+        "commands": { "type": "array", "items": { "type": "string" }, "description": "多步命令，按顺序执行" },
         "forbidden": {
           "type": "array",
-          "description": "作者明确禁止的渠道",
-          "items": { "type": "string", "enum": ["npm", "github", "release-tarball", "local-dir"] }
+          "items": { "$ref": "#/definitions/channelName" },
+          "description": "作者明确禁止的渠道"
         },
         "notes": { "type": "string" }
       }
     },
-    "compat": {
+
+    "channels": {
       "type": "array",
-      "description": "dsh 宿主版本 → 插件版本 pin 矩阵，来自 README 兼容性表",
+      "description": "各分发渠道与该插件官方作品的关系判定（供应链信息，非质量评分）",
       "items": {
         "type": "object",
-        "required": ["dsh", "plugin"],
+        "required": ["name", "trust"],
         "additionalProperties": false,
         "properties": {
-          "dsh": { "type": "string", "description": "宿主版本范围（原文语义）" },
-          "plugin": { "type": "string", "description": "应安装的插件精确版本；无可用版本时填 none" },
+          "name": { "$ref": "#/definitions/channelName" },
+          "trust": {
+            "type": "string",
+            "enum": ["official", "forbidden", "third-party", "absent", "unknown"]
+          },
+          "url": { "type": ["string", "null"] },
+          "note": { "type": ["string", "null"] }
+        }
+      }
+    },
+
+    "compat": {
+      "type": "array",
+      "description": "宿主版本 → 插件版本 pin 矩阵，取自 README 兼容表；plugin 为 none 表示无可用版本",
+      "items": {
+        "type": "object",
+        "required": ["host", "plugin"],
+        "additionalProperties": false,
+        "properties": {
+          "host": { "type": "string", "description": "宿主版本范围（原文语义）" },
+          "plugin": { "type": "string" },
           "command": { "type": ["string", "null"] },
           "note": { "type": ["string", "null"] }
         }
       }
     },
-    "trust": {
-      "type": "object",
-      "description": "供应链可信度判定，本索引的核心增值字段",
-      "additionalProperties": false,
-      "properties": {
-        "npm": {
-          "type": "string",
-          "enum": ["official", "forbidden", "third-party", "unknown", "absent"],
-          "description": "npm 渠道与上游仓库的关系"
-        },
-        "releaseSigned": { "type": ["boolean", "null"] },
-        "integrity": { "type": ["string", "null"], "description": "是否提供校验和/签名清单及位置" },
-        "notes": { "type": "string" }
-      }
-    },
+
     "stats": {
       "type": "object",
       "required": ["stars", "forks", "pushedAt"],
@@ -171,16 +178,17 @@
         "createdAt": { "type": "string", "format": "date-time" }
       }
     },
-    "links": {
+
+    "links": { "type": "object", "additionalProperties": { "type": "string" } },
+
+    "ecosystemMeta": {
       "type": "object",
-      "additionalProperties": { "type": "string" }
+      "description": "生态特有字段的存放位（如 dsh 的 contributes、VSCode 的 activationEvents），避免污染通用字段",
+      "additionalProperties": true
     },
+
     "featured": { "type": "boolean" },
     "curatedAt": { "type": "string", "format": "date" },
-    "sources": {
-      "type": "array",
-      "description": "字段来源，便于复核",
-      "items": { "type": "string" }
-    }
+    "sources": { "type": "array", "items": { "type": "string" }, "description": "字段来源，便于复核" }
   }
 }

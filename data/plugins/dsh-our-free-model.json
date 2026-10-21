@@ -1,11 +1,12 @@
 {
-  "schemaVersion": "1.0",
-  "id": "dev.ebony-vinyl.dsh-our-free-model",
+  "schemaVersion": "2.0",
+  "id": "dsh:dev.ebony-vinyl.dsh-our-free-model",
+  "ecosystem": "dsh",
   "name": "dsh-our-free-model",
   "displayName": "Our Free Model",
   "summary": "装上即用：免登录、免注册、免 API Key，免费使用 DeepSeek V4.1 Flash、Kimi K3 等前沿模型，不限量。",
   "summaryEn": "Install it in dsh and use frontier models — DeepSeek V4.1 Flash, Kimi K3 and more — with no login, no sign-up and no API key, free and uncapped.",
-  "description": "把免费模型通道封装成一个 dsh 插件：模型清单每次刷新时向上游重新拉取，选择器只广播实际可路由的模型。2.0 起额外接入 11 个账号渠道（CodeArts、LobsterAI、Qoder、TRAE、Cline、Loomy、Raccoon、MiniMax、ZCode、Gemini 等），提供本地 OpenAI 网关与局域网转发、公告中心实时推送、SHA-256 校验的应用内升级与热重载。",
+  "description": "把免费模型通道封装成 dsh 插件：模型清单每次刷新向上游重新拉取，选择器只广播实际可路由的模型。2.0 起额外接入 11 个账号渠道（CodeArts、LobsterAI、Qoder、TRAE、Cline、Loomy、Raccoon、MiniMax、ZCode、Gemini 等），提供本地 OpenAI 网关与局域网转发、公告中心实时推送、SHA-256 校验的应用内升级与热重载。",
   "repo": "https://github.com/Ebony-Vinyl/dsh-our-free-model",
   "homepage": null,
   "author": "Ebony-Vinyl",
@@ -24,17 +25,11 @@
   "license": "MIT",
   "language": "JavaScript",
   "version": "2.5.8",
-  "manifest": {
-    "path": "catalog/dsh-plugin.json",
-    "format": "dsh-plugin-0.15",
-    "id": "dev.ebony-vinyl.dsh-our-free-model",
-    "manifestVersion": "0.15",
-    "engines": {},
-    "contributes": {
-      "facets.host.entry": "index.js",
-      "facets.host.apiVersion": "v1alpha1",
-      "client": "package.json dsh.client 声明浏览器半身"
-    }
+  "host": {
+    "name": "DeepSeek Harness",
+    "manifestPath": "catalog/dsh-plugin.json",
+    "manifestFormat": "dsh-plugin-0.15",
+    "engines": {}
   },
   "install": {
     "preferred": "release-tarball",
@@ -50,31 +45,59 @@
     ],
     "notes": "作者明确禁止 npm 安装：npm 上的同名包由第三方打包，index.js 与 client.js 被改动并夹带本仓库从未有过的 src/channel-visibility.js。桌面端 Electron 的 profile 由应用独占，须在设置→插件里安装。"
   },
-  "compat": [
+  "channels": [
     {
-      "dsh": "未声明 engines.dsh；README 未给出宿主版本下限",
-      "plugin": "2.5.8",
-      "command": "dsh plugin --profile web add /绝对路径/dsh-our-free-model",
-      "note": "作者未提供兼容矩阵，安装前请确认 dsh web 可用"
+      "name": "npm",
+      "trust": "forbidden",
+      "url": "https://www.npmjs.com/package/dsh-our-free-model",
+      "note": "同名 npm 包非本仓库发布，内容不一致，作者明确要求勿装"
+    },
+    {
+      "name": "release-tarball",
+      "trust": "official",
+      "url": "https://github.com/Ebony-Vinyl/dsh-our-free-model/releases/latest",
+      "note": "官方发布包，Release 附带 SHA256SUMS"
+    },
+    {
+      "name": "local-dir",
+      "trust": "official",
+      "url": null,
+      "note": "从可信源码目录直接 add，或 npm pack 出本地 tarball 后走 file: 依赖"
     }
   ],
-  "trust": {
-    "npm": "forbidden",
-    "releaseSigned": null,
-    "integrity": "catalog/integrity.json + Release 附带 SHA256SUMS",
-    "notes": "仓库内含 catalog/provenance.json 与 release-sign 工作流；应用内升级走下载→SHA-256 校验→备份→原子替换→校验回读→热重载，失败自动回滚。"
-  },
+  "compat": [
+    {
+      "host": "未声明 engines.dsh；README 未给出宿主版本下限",
+      "plugin": "2.5.8",
+      "command": "dsh plugin --profile web add /绝对路径/dsh-our-free-model",
+      "note": "作者未提供兼容矩阵，安装前确认 dsh web 可用"
+    }
+  ],
   "stats": {
-    "stars": 32827,
-    "forks": 784,
+    "stars": 32945,
+    "forks": 801,
+    "openIssues": 298,
     "pushedAt": "2026-10-21T12:10:27Z",
-    "createdAt": "2026-09-24T16:17:19Z",
-    "openIssues": 298
+    "createdAt": "2026-09-24T16:17:19Z"
   },
   "links": {
     "releases": "https://github.com/Ebony-Vinyl/dsh-our-free-model/releases/latest",
     "issues": "https://github.com/Ebony-Vinyl/dsh-our-free-model/issues",
     "readmeEn": "https://github.com/Ebony-Vinyl/dsh-our-free-model/blob/main/README_EN.md"
+  },
+  "ecosystemMeta": {
+    "manifestId": "dev.ebony-vinyl.dsh-our-free-model",
+    "manifestVersion": "0.15",
+    "facets": {
+      "host": {
+        "entry": "index.js",
+        "apiVersion": "v1alpha1"
+      }
+    },
+    "integrity": "catalog/integrity.json + Release SHA256SUMS",
+    "provenance": "catalog/provenance.json",
+    "releaseSigned": null,
+    "packagingNotes": "bundle patch 一行 insert 挂载 host 半身；浏览器半身由 package.json 的 dsh.client 声明。整合包托管安装时须设 distribution: managed，否则与自升级互相破坏目录。"
   },
   "featured": true,
   "curatedAt": "2026-10-21",
