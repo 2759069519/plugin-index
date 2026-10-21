@@ -1,0 +1,242 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-10-21T13:16:47.740Z",
+  "count": 2,
+  "categories": [
+    "model-provider",
+    "sidebar",
+    "ui",
+    "terminal",
+    "workflow",
+    "tool",
+    "developer-tools",
+    "media",
+    "data",
+    "theme",
+    "desktop",
+    "integration",
+    "other"
+  ],
+  "usage": {
+    "install": "安装规格（install.spec）语义为「被 add 的目标」，不含 dsh plugin add 前缀；完整命令见 install.command。",
+    "trust": "trust.npm=forbidden 表示作者明确禁止 npm 渠道（存在第三方篡改包），务必按 install 字段安装。",
+    "compat": "compat 为 README 声明的宿主版本 → 插件版本 pin 矩阵，旧宿主请按矩阵装精确版本。",
+    "source": "所有字段取自插件仓库 manifest / README / GitHub API，不含主观评分。"
+  },
+  "plugins": [
+    {
+      "schemaVersion": "1.0",
+      "id": "dev.ebony-vinyl.dsh-our-free-model",
+      "name": "dsh-our-free-model",
+      "displayName": "Our Free Model",
+      "summary": "装上即用：免登录、免注册、免 API Key，免费使用 DeepSeek V4.1 Flash、Kimi K3 等前沿模型，不限量。",
+      "summaryEn": "Install it in dsh and use frontier models — DeepSeek V4.1 Flash, Kimi K3 and more — with no login, no sign-up and no API key, free and uncapped.",
+      "description": "把免费模型通道封装成一个 dsh 插件：模型清单每次刷新时向上游重新拉取，选择器只广播实际可路由的模型。2.0 起额外接入 11 个账号渠道（CodeArts、LobsterAI、Qoder、TRAE、Cline、Loomy、Raccoon、MiniMax、ZCode、Gemini 等），提供本地 OpenAI 网关与局域网转发、公告中心实时推送、SHA-256 校验的应用内升级与热重载。",
+      "repo": "https://github.com/Ebony-Vinyl/dsh-our-free-model",
+      "homepage": null,
+      "author": "Ebony-Vinyl",
+      "category": [
+        "model-provider",
+        "integration"
+      ],
+      "tags": [
+        "free-model",
+        "openai-compatible",
+        "model-gateway",
+        "multi-channel",
+        "hot-reload",
+        "zh"
+      ],
+      "license": "MIT",
+      "language": "JavaScript",
+      "version": "2.5.8",
+      "manifest": {
+        "path": "catalog/dsh-plugin.json",
+        "format": "dsh-plugin-0.15",
+        "id": "dev.ebony-vinyl.dsh-our-free-model",
+        "manifestVersion": "0.15",
+        "engines": {},
+        "contributes": {
+          "facets.host.entry": "index.js",
+          "facets.host.apiVersion": "v1alpha1",
+          "client": "package.json dsh.client 声明浏览器半身"
+        }
+      },
+      "install": {
+        "preferred": "release-tarball",
+        "spec": "<解压后的 dsh-our-free-model 目录>",
+        "command": "dsh plugin --profile web add /绝对路径/dsh-our-free-model",
+        "commands": [
+          "从 Releases 下载 dsh-our-free-model-2.5.8.tgz 并解压",
+          "dsh plugin --profile web add /绝对路径/dsh-our-free-model",
+          "安装完成后重启应用一次"
+        ],
+        "forbidden": [
+          "npm"
+        ],
+        "notes": "作者明确禁止 npm 安装：npm 上的同名包由第三方打包，index.js 与 client.js 被改动并夹带本仓库从未有过的 src/channel-visibility.js。桌面端 Electron 的 profile 由应用独占，须在设置→插件里安装。"
+      },
+      "compat": [
+        {
+          "dsh": "未声明 engines.dsh；README 未给出宿主版本下限",
+          "plugin": "2.5.8",
+          "command": "dsh plugin --profile web add /绝对路径/dsh-our-free-model",
+          "note": "作者未提供兼容矩阵，安装前请确认 dsh web 可用"
+        }
+      ],
+      "trust": {
+        "npm": "forbidden",
+        "releaseSigned": null,
+        "integrity": "catalog/integrity.json + Release 附带 SHA256SUMS",
+        "notes": "仓库内含 catalog/provenance.json 与 release-sign 工作流；应用内升级走下载→SHA-256 校验→备份→原子替换→校验回读→热重载，失败自动回滚。"
+      },
+      "stats": {
+        "stars": 32827,
+        "forks": 784,
+        "pushedAt": "2026-10-21T12:10:27Z",
+        "createdAt": "2026-09-24T16:17:19Z",
+        "openIssues": 298
+      },
+      "links": {
+        "releases": "https://github.com/Ebony-Vinyl/dsh-our-free-model/releases/latest",
+        "issues": "https://github.com/Ebony-Vinyl/dsh-our-free-model/issues",
+        "readmeEn": "https://github.com/Ebony-Vinyl/dsh-our-free-model/blob/main/README_EN.md"
+      },
+      "featured": true,
+      "curatedAt": "2026-10-21",
+      "sources": [
+        "GitHub API /repos/Ebony-Vinyl/dsh-our-free-model",
+        "catalog/dsh-plugin.json",
+        "package.json",
+        "README.md 安装章节",
+        "Releases v2.5.8 资产清单"
+      ]
+    },
+    {
+      "schemaVersion": "1.0",
+      "id": "dsh-external/dsh-better-sidebar",
+      "name": "dsh-better-sidebar",
+      "displayName": "Better Sidebar",
+      "summary": "更好用的右侧边栏工作台：文件树、编辑器、终端、Git、侧边对话、子代理都收在这一栏，会话之间互不干扰。",
+      "summaryEn": "A dual workbench for DSH: native right sidebar plus self-drawn bottom panel, with the ctx.betterSidebar service open to every plugin.",
+      "description": "开放的侧边栏底座，向三方插件暴露 ctx.betterSidebar 服务以便注册新侧边栏页面与文件预览器。内置文件渲染/编辑、终端、文件变动、任务、Git 面板与侧边对话，状态按会话存于 localStorage。单 npm 包，host 半身提供 /sidebar/api/* JSON API 与两条 WebSocket，client 半身渲染原生右栏与底部工作台。",
+      "repo": "https://github.com/omdsh-dev/DSH-better-sidebar",
+      "homepage": null,
+      "author": "omdsh-dev (Oh My DSH)",
+      "category": [
+        "sidebar",
+        "ui",
+        "developer-tools"
+      ],
+      "tags": [
+        "sidebar",
+        "editor",
+        "terminal",
+        "git",
+        "side-chat",
+        "extension-host",
+        "zh",
+        "en"
+      ],
+      "license": "MIT",
+      "language": "TypeScript",
+      "version": "0.28.0",
+      "manifest": {
+        "path": "dsh.plugin.json",
+        "format": "dsh.plugin.json",
+        "id": "dsh-external/dsh-better-sidebar",
+        "manifestVersion": null,
+        "engines": {
+          "dsh": ">=0.2.1-rc.1"
+        },
+        "contributes": {
+          "tools": [],
+          "skills": [],
+          "client.main": "./lib/client-registry.js",
+          "main": "./lib/index.js"
+        }
+      },
+      "install": {
+        "preferred": "npm",
+        "spec": "dsh-better-sidebar@0.28.0",
+        "command": "dsh plugin --profile web add dsh-better-sidebar@0.28.0",
+        "commands": [
+          "dsh plugin --profile web add dsh-better-sidebar@0.28.0",
+          "硬刷新浏览器（Cmd/Ctrl+Shift+R）"
+        ],
+        "forbidden": [],
+        "notes": "npm latest 会随宿主版本前移，旧宿主务必按下方矩阵 pin 精确版本。也可让 DSH 自行安装（README 提供 prompt），或克隆仓库跑 scripts/install.sh <version>。"
+      },
+      "compat": [
+        {
+          "dsh": "0.2.1-rc.1+",
+          "plugin": "0.28.0",
+          "command": "dsh plugin --profile web add dsh-better-sidebar@0.28.0",
+          "note": null
+        },
+        {
+          "dsh": "0.2.1-alpha.5",
+          "plugin": "0.28.0-alpha.0",
+          "command": "dsh plugin --profile web add dsh-better-sidebar@0.28.0-alpha.0",
+          "note": null
+        },
+        {
+          "dsh": "0.2.0-rc.2",
+          "plugin": "0.26.1",
+          "command": "dsh plugin --profile web add dsh-better-sidebar@0.26.1",
+          "note": "宿主 npm latest 仍指向 0.2.0-rc.2，不可直装 0.28.0"
+        },
+        {
+          "dsh": "0.2.0-rc.1",
+          "plugin": "0.24.1",
+          "command": "dsh plugin --profile web add dsh-better-sidebar@0.24.1",
+          "note": null
+        },
+        {
+          "dsh": "0.1.7-rc.1 ~ 0.1.7 stable",
+          "plugin": "0.22.1",
+          "command": "dsh plugin --profile web add dsh-better-sidebar@0.22.1",
+          "note": null
+        },
+        {
+          "dsh": "0.1.7-alpha.x",
+          "plugin": "none",
+          "command": null,
+          "note": "无兼容版本，需先升级 DSH 到 rc.1"
+        },
+        {
+          "dsh": "0.1.6 及更早（含 0.1.5 线）",
+          "plugin": "0.19.1",
+          "command": "dsh plugin --profile web add dsh-better-sidebar@0.19.1",
+          "note": null
+        }
+      ],
+      "trust": {
+        "npm": "official",
+        "releaseSigned": null,
+        "integrity": null,
+        "notes": "npm 包 dsh-better-sidebar 即本仓库发布（README 直接引用 npm 徽章与安装命令）；仓库无 Release 资产，分发以 npm 为准。"
+      },
+      "stats": {
+        "stars": 4388,
+        "forks": 418,
+        "pushedAt": "2026-10-17T16:15:27Z",
+        "createdAt": "2026-08-07T16:04:00Z",
+        "openIssues": 221
+      },
+      "links": {
+        "changelog": "https://github.com/omdsh-dev/DSH-better-sidebar/blob/main/CHANGELOG.md",
+        "externalPluginGuide": "https://github.com/omdsh-dev/DSH-better-sidebar/blob/main/docs/external-plugin-guide.md",
+        "npm": "https://www.npmjs.com/package/dsh-better-sidebar"
+      },
+      "featured": true,
+      "curatedAt": "2026-10-21",
+      "sources": [
+        "GitHub API /repos/omdsh-dev/DSH-better-sidebar",
+        "dsh.plugin.json",
+        "README.md 安装与兼容矩阵章节",
+        "Releases 列表（无资产）"
+      ]
+    }
+  ]
+}

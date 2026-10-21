@@ -1,0 +1,186 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/2759069519/dsh-plugin-index/schema/plugin.schema.json",
+  "title": "DSH Plugin Index Entry",
+  "description": "一条 dsh 插件索引条目。所有字段以插件仓库的 manifest / README / GitHub API 为唯一事实来源，不做推测。",
+  "type": "object",
+  "required": ["id", "name", "summary", "repo", "category", "install", "stats", "curatedAt"],
+  "additionalProperties": false,
+  "definitions": {
+    "semverLike": {
+      "type": "string",
+      "pattern": "^v?[0-9]+\\.[0-9]+\\.[0-9]+([.-][0-9A-Za-z.-]+)?$"
+    }
+  },
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "id": {
+      "type": "string",
+      "description": "优先取插件 manifest 的 id；无 manifest 时用 github:owner/repo",
+      "pattern": "^([a-z0-9-]+(\\.[a-z0-9-]+)+|dsh-external\\/[a-z0-9-]+|github:[A-Za-z0-9_.-]+\\/[A-Za-z0-9_.-]+)$"
+    },
+    "name": {
+      "type": "string",
+      "description": "仓库名，或 npm 包名"
+    },
+    "displayName": { "type": "string" },
+    "summary": {
+      "type": "string",
+      "description": "中文一句话说明（<=80 字），供列表与检索使用",
+      "maxLength": 120
+    },
+    "summaryEn": { "type": "string" },
+    "description": {
+      "type": "string",
+      "description": "展开说明，来自 README 的事实性要点，不超过 200 字"
+    },
+    "repo": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://github\\.com/"
+    },
+    "homepage": { "type": ["string", "null"], "format": "uri" },
+    "author": { "type": "string" },
+    "category": {
+      "type": "array",
+      "description": "至少一个分类，首个为主分类",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "model-provider",
+          "sidebar",
+          "ui",
+          "terminal",
+          "workflow",
+          "tool",
+          "developer-tools",
+          "media",
+          "data",
+          "theme",
+          "desktop",
+          "integration",
+          "other"
+        ]
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "license": { "type": ["string", "null"] },
+    "language": { "type": ["string", "null"] },
+    "version": { "$ref": "#/definitions/semverLike" },
+    "manifest": {
+      "type": ["object", "null"],
+      "description": "插件清单声明；null 表示仓库内未找到可用清单（可能不是真插件，trust.manifest 记为 missing）",
+      "required": ["path", "format"],
+      "additionalProperties": false,
+      "properties": {
+        "path": { "type": "string" },
+        "format": {
+          "type": "string",
+          "enum": ["dsh-plugin-0.15", "dsh.plugin.json", "package.json:dsh", "none"]
+        },
+        "id": { "type": ["string", "null"] },
+        "manifestVersion": { "type": ["string", "null"] },
+        "engines": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        },
+        "contributes": {
+          "type": "object",
+          "description": "manifest 声明的能力贡献，如 tools / skills / client 入口",
+          "additionalProperties": true
+        }
+      }
+    },
+    "install": {
+      "type": "object",
+      "required": ["preferred", "spec"],
+      "additionalProperties": false,
+      "properties": {
+        "preferred": {
+          "type": "string",
+          "description": "推荐安装渠道；由插件作者 README 声明决定，不由本索引臆断",
+          "enum": ["npm", "github", "release-tarball", "local-dir", "script"]
+        },
+        "spec": {
+          "type": "string",
+          "description": "安装规格。语义唯一：被 add 的目标，不含 dsh plugin add 前缀"
+        },
+        "command": {
+          "type": "string",
+          "description": "完整可直接执行的命令"
+        },
+        "commands": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "forbidden": {
+          "type": "array",
+          "description": "作者明确禁止的渠道",
+          "items": { "type": "string", "enum": ["npm", "github", "release-tarball", "local-dir"] }
+        },
+        "notes": { "type": "string" }
+      }
+    },
+    "compat": {
+      "type": "array",
+      "description": "dsh 宿主版本 → 插件版本 pin 矩阵，来自 README 兼容性表",
+      "items": {
+        "type": "object",
+        "required": ["dsh", "plugin"],
+        "additionalProperties": false,
+        "properties": {
+          "dsh": { "type": "string", "description": "宿主版本范围（原文语义）" },
+          "plugin": { "type": "string", "description": "应安装的插件精确版本；无可用版本时填 none" },
+          "command": { "type": ["string", "null"] },
+          "note": { "type": ["string", "null"] }
+        }
+      }
+    },
+    "trust": {
+      "type": "object",
+      "description": "供应链可信度判定，本索引的核心增值字段",
+      "additionalProperties": false,
+      "properties": {
+        "npm": {
+          "type": "string",
+          "enum": ["official", "forbidden", "third-party", "unknown", "absent"],
+          "description": "npm 渠道与上游仓库的关系"
+        },
+        "releaseSigned": { "type": ["boolean", "null"] },
+        "integrity": { "type": ["string", "null"], "description": "是否提供校验和/签名清单及位置" },
+        "notes": { "type": "string" }
+      }
+    },
+    "stats": {
+      "type": "object",
+      "required": ["stars", "forks", "pushedAt"],
+      "additionalProperties": false,
+      "properties": {
+        "stars": { "type": "integer", "minimum": 0 },
+        "forks": { "type": "integer", "minimum": 0 },
+        "openIssues": { "type": "integer", "minimum": 0 },
+        "pushedAt": { "type": "string", "format": "date-time" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "links": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "featured": { "type": "boolean" },
+    "curatedAt": { "type": "string", "format": "date" },
+    "sources": {
+      "type": "array",
+      "description": "字段来源，便于复核",
+      "items": { "type": "string" }
+    }
+  }
+}

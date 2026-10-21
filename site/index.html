@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DSH 插件索引 · 2 个已收录</title>
+<meta name="description" content="DeepSeek Harness (dsh) 插件索引：可信安装源、版本兼容矩阵与中文检索。">
+<style>
+:root{--paper:#f6f3ec;--ink:#1c1814;--ink-soft:#5b544c;--red:#d64524;--line:#d9d3c7;--card:#fffdf8}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;line-height:1.6}
+.mono,code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+header.hero{border-bottom:2px solid var(--ink);padding:34px 0 22px}
+.kicker{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--red);font-weight:700}
+h1{font-size:clamp(30px,5.2vw,58px);line-height:1.02;margin:10px 0 8px;letter-spacing:-.02em;font-weight:800}
+h1 em{font-style:normal;color:var(--red)}
+.lede{max-width:56ch;color:var(--ink-soft);font-size:15px;margin:0}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:18px 0;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--paper);z-index:5}
+input[type=search]{flex:1 1 260px;min-width:0;padding:11px 13px;border:2px solid var(--ink);background:var(--card);font-size:14px;border-radius:0;outline:none}
+input[type=search]:focus{border-color:var(--red)}
+.chip,.chip-all{border:1px solid var(--ink);background:transparent;padding:7px 12px;font-size:13px;cursor:pointer;border-radius:0}
+.chip[aria-pressed=true],.chip-all[aria-pressed=true]{background:var(--ink);color:var(--paper)}
+.count{margin-left:auto;font-size:12px;color:var(--ink-soft)}
+main{padding:26px 0 60px}
+.grid{display:grid;grid-template-columns:1fr;gap:0}
+.card{background:var(--card);border:1px solid var(--line);border-top:2px solid var(--ink);padding:20px;display:flex;flex-direction:column;gap:12px}
+.card-head{display:flex;justify-content:space-between;gap:14px;align-items:flex-start}
+h2{font-size:21px;margin:0;letter-spacing:-.01em}
+h2 a{text-decoration:none}
+h2 a:hover{color:var(--red)}
+.slug{margin:2px 0 0;font-size:12px;color:var(--ink-soft);font-family:ui-monospace,monospace}
+.stars{text-align:right;line-height:1.1}
+.stars b{font-size:18px;display:block}
+.stars span{font-size:11px;color:var(--red)}
+.meta{display:flex;flex-wrap:wrap;gap:6px}
+.badge{font-size:11px;padding:2px 7px;border:1px solid var(--ink);letter-spacing:.02em}
+.badge.ghost{border-color:var(--line);color:var(--ink-soft)}
+.badge.warn{background:var(--red);border-color:var(--red);color:#fff}
+.badge.ok{border-color:#2f6b3a;color:#2f6b3a}
+.summary{margin:0;font-size:14.5px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;font-size:11.5px;color:var(--ink-soft);font-family:ui-monospace,monospace}
+.install{background:#efe9dd;border-left:3px solid var(--red);padding:10px 12px;display:flex;flex-direction:column;gap:6px}
+.install .label{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--red);font-weight:700}
+code.cmd{font-size:12.5px;word-break:break-all;cursor:copy;display:block}
+code.cmd:hover{color:var(--red)}
+.note{margin:0;font-size:12.5px;color:var(--ink-soft);border-top:1px dashed var(--line);padding-top:8px}
+details summary{cursor:pointer;font-size:13px;color:var(--red);font-weight:600}
+table.compat{width:100%;border-collapse:collapse;margin-top:10px;font-size:12.5px}
+table.compat th,table.compat td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+table.compat th{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
+.card-foot{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-soft);border-top:1px solid var(--line);padding-top:10px;margin-top:auto}
+.card-foot a{color:var(--red);text-decoration:none}
+.empty{padding:60px 0;text-align:center;color:var(--ink-soft)}
+footer.page{border-top:2px solid var(--ink);padding:22px 0 50px;font-size:12.5px;color:var(--ink-soft)}
+footer.page code{background:#efe9dd;padding:1px 5px}
+@media(min-width:760px){.grid{grid-template-columns:repeat(2,1fr)}.card{margin:-1px 0 0 -1px}}
+@media(min-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<header class="hero"><div class="wrap">
+  <div class="kicker">DeepSeek Harness · Plugin Index</div>
+  <h1>dsh 插件索引<em>.</em></h1>
+  <p class="lede">只记录事实：可信安装源、宿主版本兼容矩阵、中文说明。字段取自插件仓库的 manifest、README 与 GitHub API，不做主观评分。</p>
+</div></header>
+
+<div class="wrap toolbar">
+  <input type="search" id="q" placeholder="搜索插件名 / 功能 / 标签…" aria-label="搜索">
+  <button class="chip-all" data-filter="" aria-pressed="true">全部</button>
+  <button class="chip" data-filter="model-provider">模型接入</button><button class="chip" data-filter="sidebar">侧边栏</button><button class="chip" data-filter="ui">界面</button><button class="chip" data-filter="developer-tools">开发工具</button><button class="chip" data-filter="integration">集成扩展</button>
+  <span class="count" id="count">2 个插件</span>
+</div>
+
+<main class="wrap">
+  <div class="grid" id="grid">
+    <article class="card" data-name="dsh-our-free-model our free model 装上即用：免登录、免注册、免 api key，免费使用 deepseek v4.1 flash、kimi k3 等前沿模型，不限量。 free-model openai-compatible model-gateway multi-channel hot-reload zh" data-cat="model-provider integration">
+      <header class="card-head">
+        <div>
+          <h2><a href="https://github.com/Ebony-Vinyl/dsh-our-free-model" target="_blank" rel="noopener">Our Free Model</a></h2>
+          <p class="slug">dsh-our-free-model · Ebony-Vinyl</p>
+        </div>
+        <div class="stars"><b>32,827</b><span>★</span></div>
+      </header>
+      <div class="meta">
+        <span class="badge">模型接入</span>
+        <span class="badge ghost">JavaScript</span>
+        <span class="badge ghost">MIT</span>
+        <span class="badge ghost">v2.5.8</span>
+        <span class="badge warn">npm 渠道禁用</span>
+      </div>
+      <p class="summary">装上即用：免登录、免注册、免 API Key，免费使用 DeepSeek V4.1 Flash、Kimi K3 等前沿模型，不限量。</p>
+      <div class="tags"><span>#free-model</span><span>#openai-compatible</span><span>#model-gateway</span><span>#multi-channel</span><span>#hot-reload</span><span>#zh</span></div>
+      <div class="install">
+        <span class="label">推荐安装 · release-tarball</span>
+        <code class="cmd" data-copy="dsh plugin --profile web add /绝对路径/dsh-our-free-model">dsh plugin --profile web add /绝对路径/dsh-our-free-model</code>
+      </div>
+      <p class="note">作者明确禁止 npm 安装：npm 上的同名包由第三方打包，index.js 与 client.js 被改动并夹带本仓库从未有过的 src/channel-visibility.js。桌面端 Electron 的 profile 由应用独占，须在设置→插件里安装。</p>
+      <details><summary>兼容矩阵（1 条）</summary>
+        <table class="compat"><thead><tr><th>你的 dsh</th><th>插件版本</th><th>命令</th></tr></thead><tbody><tr><td>未声明 engines.dsh；README 未给出宿主版本下限</td><td><code>2.5.8</code></td><td><code class="cmd" data-copy="dsh plugin --profile web add /绝对路径/dsh-our-free-model">dsh plugin --profile web add /绝对路径/dsh-our-free-model</code></td></tr></tbody></table>
+      </details>
+      <footer class="card-foot">
+        <span>更新于 2026-10-21</span>
+        <a href="https://github.com/Ebony-Vinyl/dsh-our-free-model" target="_blank" rel="noopener">仓库 ↗</a>
+      </footer>
+    </article>
+    <article class="card" data-name="dsh-better-sidebar better sidebar 更好用的右侧边栏工作台：文件树、编辑器、终端、git、侧边对话、子代理都收在这一栏，会话之间互不干扰。 sidebar editor terminal git side-chat extension-host zh en" data-cat="sidebar ui developer-tools">
+      <header class="card-head">
+        <div>
+          <h2><a href="https://github.com/omdsh-dev/DSH-better-sidebar" target="_blank" rel="noopener">Better Sidebar</a></h2>
+          <p class="slug">dsh-better-sidebar · omdsh-dev (Oh My DSH)</p>
+        </div>
+        <div class="stars"><b>4,388</b><span>★</span></div>
+      </header>
+      <div class="meta">
+        <span class="badge">侧边栏</span>
+        <span class="badge ghost">TypeScript</span>
+        <span class="badge ghost">MIT</span>
+        <span class="badge ghost">v0.28.0</span>
+        <span class="badge ok">npm 官方发布</span>
+      </div>
+      <p class="summary">更好用的右侧边栏工作台：文件树、编辑器、终端、Git、侧边对话、子代理都收在这一栏，会话之间互不干扰。</p>
+      <div class="tags"><span>#sidebar</span><span>#editor</span><span>#terminal</span><span>#git</span><span>#side-chat</span><span>#extension-host</span><span>#zh</span><span>#en</span></div>
+      <div class="install">
+        <span class="label">推荐安装 · npm</span>
+        <code class="cmd" data-copy="dsh plugin --profile web add dsh-better-sidebar@0.28.0">dsh plugin --profile web add dsh-better-sidebar@0.28.0</code>
+      </div>
+      <p class="note">npm latest 会随宿主版本前移，旧宿主务必按下方矩阵 pin 精确版本。也可让 DSH 自行安装（README 提供 prompt），或克隆仓库跑 scripts/install.sh &lt;version&gt;。</p>
+      <details><summary>兼容矩阵（7 条）</summary>
+        <table class="compat"><thead><tr><th>你的 dsh</th><th>插件版本</th><th>命令</th></tr></thead><tbody><tr><td>0.2.1-rc.1+</td><td><code>0.28.0</code></td><td><code class="cmd" data-copy="dsh plugin --profile web add dsh-better-sidebar@0.28.0">dsh plugin --profile web add dsh-better-sidebar@0.28.0</code></td></tr><tr><td>0.2.1-alpha.5</td><td><code>0.28.0-alpha.0</code></td><td><code class="cmd" data-copy="dsh plugin --profile web add dsh-better-sidebar@0.28.0-alpha.0">dsh plugin --profile web add dsh-better-sidebar@0.28.0-alpha.0</code></td></tr><tr><td>0.2.0-rc.2</td><td><code>0.26.1</code></td><td><code class="cmd" data-copy="dsh plugin --profile web add dsh-better-sidebar@0.26.1">dsh plugin --profile web add dsh-better-sidebar@0.26.1</code></td></tr><tr><td>0.2.0-rc.1</td><td><code>0.24.1</code></td><td><code class="cmd" data-copy="dsh plugin --profile web add dsh-better-sidebar@0.24.1">dsh plugin --profile web add dsh-better-sidebar@0.24.1</code></td></tr><tr><td>0.1.7-rc.1 ~ 0.1.7 stable</td><td><code>0.22.1</code></td><td><code class="cmd" data-copy="dsh plugin --profile web add dsh-better-sidebar@0.22.1">dsh plugin --profile web add dsh-better-sidebar@0.22.1</code></td></tr><tr><td>0.1.7-alpha.x</td><td><code>none</code></td><td>—</td></tr><tr><td>0.1.6 及更早（含 0.1.5 线）</td><td><code>0.19.1</code></td><td><code class="cmd" data-copy="dsh plugin --profile web add dsh-better-sidebar@0.19.1">dsh plugin --profile web add dsh-better-sidebar@0.19.1</code></td></tr></tbody></table>
+      </details>
+      <footer class="card-foot">
+        <span>更新于 2026-10-17</span>
+        <a href="https://github.com/omdsh-dev/DSH-better-sidebar" target="_blank" rel="noopener">仓库 ↗</a>
+      </footer>
+    </article></div>
+  <p class="empty" id="empty" hidden>没有匹配的插件。</p>
+</main>
+
+<footer class="page"><div class="wrap">
+  数据源 <code>data/index.json</code> · 生成于 2026-10-21 13:16 UTC · 收录新插件：往 <code>data/plugins/</code> 加一个 JSON 后跑 <code>node scripts/build.mjs</code>
+</div></footer>
+
+<script type="application/json" id="index-data">{"schemaVersion":"1.0","generatedAt":"2026-10-21T13:16:47.740Z","count":2,"categories":["model-provider","sidebar","ui","terminal","workflow","tool","developer-tools","media","data","theme","desktop","integration","other"],"usage":{"install":"安装规格（install.spec）语义为「被 add 的目标」，不含 dsh plugin add 前缀；完整命令见 install.command。","trust":"trust.npm=forbidden 表示作者明确禁止 npm 渠道（存在第三方篡改包），务必按 install 字段安装。","compat":"compat 为 README 声明的宿主版本 → 插件版本 pin 矩阵，旧宿主请按矩阵装精确版本。","source":"所有字段取自插件仓库 manifest / README / GitHub API，不含主观评分。"},"plugins":[{"schemaVersion":"1.0","id":"dev.ebony-vinyl.dsh-our-free-model","name":"dsh-our-free-model","displayName":"Our Free Model","summary":"装上即用：免登录、免注册、免 API Key，免费使用 DeepSeek V4.1 Flash、Kimi K3 等前沿模型，不限量。","summaryEn":"Install it in dsh and use frontier models — DeepSeek V4.1 Flash, Kimi K3 and more — with no login, no sign-up and no API key, free and uncapped.","description":"把免费模型通道封装成一个 dsh 插件：模型清单每次刷新时向上游重新拉取，选择器只广播实际可路由的模型。2.0 起额外接入 11 个账号渠道（CodeArts、LobsterAI、Qoder、TRAE、Cline、Loomy、Raccoon、MiniMax、ZCode、Gemini 等），提供本地 OpenAI 网关与局域网转发、公告中心实时推送、SHA-256 校验的应用内升级与热重载。","repo":"https://github.com/Ebony-Vinyl/dsh-our-free-model","homepage":null,"author":"Ebony-Vinyl","category":["model-provider","integration"],"tags":["free-model","openai-compatible","model-gateway","multi-channel","hot-reload","zh"],"license":"MIT","language":"JavaScript","version":"2.5.8","manifest":{"path":"catalog/dsh-plugin.json","format":"dsh-plugin-0.15","id":"dev.ebony-vinyl.dsh-our-free-model","manifestVersion":"0.15","engines":{},"contributes":{"facets.host.entry":"index.js","facets.host.apiVersion":"v1alpha1","client":"package.json dsh.client 声明浏览器半身"}},"install":{"preferred":"release-tarball","spec":"\u003c解压后的 dsh-our-free-model 目录>","command":"dsh plugin --profile web add /绝对路径/dsh-our-free-model","commands":["从 Releases 下载 dsh-our-free-model-2.5.8.tgz 并解压","dsh plugin --profile web add /绝对路径/dsh-our-free-model","安装完成后重启应用一次"],"forbidden":["npm"],"notes":"作者明确禁止 npm 安装：npm 上的同名包由第三方打包，index.js 与 client.js 被改动并夹带本仓库从未有过的 src/channel-visibility.js。桌面端 Electron 的 profile 由应用独占，须在设置→插件里安装。"},"compat":[{"dsh":"未声明 engines.dsh；README 未给出宿主版本下限","plugin":"2.5.8","command":"dsh plugin --profile web add /绝对路径/dsh-our-free-model","note":"作者未提供兼容矩阵，安装前请确认 dsh web 可用"}],"trust":{"npm":"forbidden","releaseSigned":null,"integrity":"catalog/integrity.json + Release 附带 SHA256SUMS","notes":"仓库内含 catalog/provenance.json 与 release-sign 工作流；应用内升级走下载→SHA-256 校验→备份→原子替换→校验回读→热重载，失败自动回滚。"},"stats":{"stars":32827,"forks":784,"pushedAt":"2026-10-21T12:10:27Z","createdAt":"2026-09-24T16:17:19Z","openIssues":298},"links":{"releases":"https://github.com/Ebony-Vinyl/dsh-our-free-model/releases/latest","issues":"https://github.com/Ebony-Vinyl/dsh-our-free-model/issues","readmeEn":"https://github.com/Ebony-Vinyl/dsh-our-free-model/blob/main/README_EN.md"},"featured":true,"curatedAt":"2026-10-21","sources":["GitHub API /repos/Ebony-Vinyl/dsh-our-free-model","catalog/dsh-plugin.json","package.json","README.md 安装章节","Releases v2.5.8 资产清单"]},{"schemaVersion":"1.0","id":"dsh-external/dsh-better-sidebar","name":"dsh-better-sidebar","displayName":"Better Sidebar","summary":"更好用的右侧边栏工作台：文件树、编辑器、终端、Git、侧边对话、子代理都收在这一栏，会话之间互不干扰。","summaryEn":"A dual workbench for DSH: native right sidebar plus self-drawn bottom panel, with the ctx.betterSidebar service open to every plugin.","description":"开放的侧边栏底座，向三方插件暴露 ctx.betterSidebar 服务以便注册新侧边栏页面与文件预览器。内置文件渲染/编辑、终端、文件变动、任务、Git 面板与侧边对话，状态按会话存于 localStorage。单 npm 包，host 半身提供 /sidebar/api/* JSON API 与两条 WebSocket，client 半身渲染原生右栏与底部工作台。","repo":"https://github.com/omdsh-dev/DSH-better-sidebar","homepage":null,"author":"omdsh-dev (Oh My DSH)","category":["sidebar","ui","developer-tools"],"tags":["sidebar","editor","terminal","git","side-chat","extension-host","zh","en"],"license":"MIT","language":"TypeScript","version":"0.28.0","manifest":{"path":"dsh.plugin.json","format":"dsh.plugin.json","id":"dsh-external/dsh-better-sidebar","manifestVersion":null,"engines":{"dsh":">=0.2.1-rc.1"},"contributes":{"tools":[],"skills":[],"client.main":"./lib/client-registry.js","main":"./lib/index.js"}},"install":{"preferred":"npm","spec":"dsh-better-sidebar@0.28.0","command":"dsh plugin --profile web add dsh-better-sidebar@0.28.0","commands":["dsh plugin --profile web add dsh-better-sidebar@0.28.0","硬刷新浏览器（Cmd/Ctrl+Shift+R）"],"forbidden":[],"notes":"npm latest 会随宿主版本前移，旧宿主务必按下方矩阵 pin 精确版本。也可让 DSH 自行安装（README 提供 prompt），或克隆仓库跑 scripts/install.sh \u003cversion>。"},"compat":[{"dsh":"0.2.1-rc.1+","plugin":"0.28.0","command":"dsh plugin --profile web add dsh-better-sidebar@0.28.0","note":null},{"dsh":"0.2.1-alpha.5","plugin":"0.28.0-alpha.0","command":"dsh plugin --profile web add dsh-better-sidebar@0.28.0-alpha.0","note":null},{"dsh":"0.2.0-rc.2","plugin":"0.26.1","command":"dsh plugin --profile web add dsh-better-sidebar@0.26.1","note":"宿主 npm latest 仍指向 0.2.0-rc.2，不可直装 0.28.0"},{"dsh":"0.2.0-rc.1","plugin":"0.24.1","command":"dsh plugin --profile web add dsh-better-sidebar@0.24.1","note":null},{"dsh":"0.1.7-rc.1 ~ 0.1.7 stable","plugin":"0.22.1","command":"dsh plugin --profile web add dsh-better-sidebar@0.22.1","note":null},{"dsh":"0.1.7-alpha.x","plugin":"none","command":null,"note":"无兼容版本，需先升级 DSH 到 rc.1"},{"dsh":"0.1.6 及更早（含 0.1.5 线）","plugin":"0.19.1","command":"dsh plugin --profile web add dsh-better-sidebar@0.19.1","note":null}],"trust":{"npm":"official","releaseSigned":null,"integrity":null,"notes":"npm 包 dsh-better-sidebar 即本仓库发布（README 直接引用 npm 徽章与安装命令）；仓库无 Release 资产，分发以 npm 为准。"},"stats":{"stars":4388,"forks":418,"pushedAt":"2026-10-17T16:15:27Z","createdAt":"2026-08-07T16:04:00Z","openIssues":221},"links":{"changelog":"https://github.com/omdsh-dev/DSH-better-sidebar/blob/main/CHANGELOG.md","externalPluginGuide":"https://github.com/omdsh-dev/DSH-better-sidebar/blob/main/docs/external-plugin-guide.md","npm":"https://www.npmjs.com/package/dsh-better-sidebar"},"featured":true,"curatedAt":"2026-10-21","sources":["GitHub API /repos/omdsh-dev/DSH-better-sidebar","dsh.plugin.json","README.md 安装与兼容矩阵章节","Releases 列表（无资产）"]}]}</script>
+<script>
+(function(){
+  var q = document.getElementById('q');
+  var cards = Array.prototype.slice.call(document.querySelectorAll('.card'));
+  var countEl = document.getElementById('count');
+  var emptyEl = document.getElementById('empty');
+  var chips = Array.prototype.slice.call(document.querySelectorAll('[data-filter]'));
+  var activeCat = '';
+
+  function apply(){
+    var kw = q.value.trim().toLowerCase();
+    var n = 0;
+    cards.forEach(function(c){
+      var okKw = !kw || c.dataset.name.indexOf(kw) !== -1;
+      var okCat = !activeCat || (' ' + c.dataset.cat + ' ').indexOf(' ' + activeCat + ' ') !== -1;
+      var show = okKw && okCat;
+      c.hidden = !show;
+      if (show) n++;
+    });
+    countEl.textContent = n + ' / ' + cards.length + ' 个插件';
+    emptyEl.hidden = n !== 0;
+  }
+  q.addEventListener('input', apply);
+  chips.forEach(function(b){
+    b.addEventListener('click', function(){
+      activeCat = b.dataset.filter;
+      chips.forEach(function(x){ x.setAttribute('aria-pressed', String(x === b)); });
+      apply();
+    });
+  });
+  document.querySelectorAll('code.cmd').forEach(function(el){
+    el.title = '点击复制';
+    el.addEventListener('click', function(){
+      var t = el.dataset.copy || el.textContent;
+      (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(function(){
+        var old = el.textContent; el.textContent = '✓ 已复制'; setTimeout(function(){ el.textContent = old; }, 1200);
+      }).catch(function(){});
+    });
+  });
+})();
+</script>
+</body>
+</html>
