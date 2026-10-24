@@ -1,6 +1,6 @@
 {
   "schemaVersion": "2.0",
-  "generatedAt": "2026-10-23T08:35:34.654Z",
+  "generatedAt": "2026-10-24T08:10:28.289Z",
   "count": 2,
   "ecosystems": [
     {
@@ -115,10 +115,10 @@
         }
       ],
       "stats": {
-        "stars": 37800,
-        "forks": 1083,
-        "openIssues": 316,
-        "pushedAt": "2026-10-23T05:11:34Z",
+        "stars": 39988,
+        "forks": 1149,
+        "openIssues": 324,
+        "pushedAt": "2026-10-24T06:03:04Z",
         "createdAt": "2026-09-24T16:17:19Z"
       },
       "links": {
@@ -258,10 +258,10 @@
         }
       ],
       "stats": {
-        "stars": 4457,
-        "forks": 426,
-        "openIssues": 236,
-        "pushedAt": "2026-10-23T04:38:38Z",
+        "stars": 4496,
+        "forks": 427,
+        "openIssues": 240,
+        "pushedAt": "2026-10-24T04:32:34Z",
         "createdAt": "2026-08-07T16:04:00Z"
       },
       "links": {
