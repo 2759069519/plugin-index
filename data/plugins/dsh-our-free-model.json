@@ -24,7 +24,7 @@
   ],
   "license": "MIT",
   "language": "JavaScript",
-  "version": "2.5.9",
+  "version": "2.7.0",
   "host": {
     "name": "DeepSeek Harness",
     "manifestPath": "catalog/dsh-plugin.json",
@@ -74,10 +74,10 @@
     }
   ],
   "stats": {
-    "stars": 39988,
-    "forks": 1149,
-    "openIssues": 324,
-    "pushedAt": "2026-10-24T06:03:04Z",
+    "stars": 41947,
+    "forks": 1199,
+    "openIssues": 333,
+    "pushedAt": "2026-10-25T07:40:57Z",
     "createdAt": "2026-09-24T16:17:19Z"
   },
   "links": {
