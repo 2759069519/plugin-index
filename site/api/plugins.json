@@ -1,6 +1,6 @@
 {
   "schemaVersion": "2.0",
-  "generatedAt": "2026-10-30T10:05:05.946Z",
+  "generatedAt": "2026-10-31T09:41:40.530Z",
   "count": 2,
   "ecosystems": [
     {
@@ -65,7 +65,7 @@
       ],
       "license": "MIT",
       "language": "JavaScript",
-      "version": "2.7.3",
+      "version": "2.7.4",
       "host": {
         "name": "DeepSeek Harness",
         "manifestPath": "catalog/dsh-plugin.json",
@@ -115,10 +115,10 @@
         }
       ],
       "stats": {
-        "stars": 51906,
-        "forks": 1421,
-        "openIssues": 374,
-        "pushedAt": "2026-10-30T07:19:04Z",
+        "stars": 53471,
+        "forks": 1465,
+        "openIssues": 93,
+        "pushedAt": "2026-10-31T04:39:48Z",
         "createdAt": "2026-09-24T16:17:19Z"
       },
       "links": {
@@ -258,9 +258,9 @@
         }
       ],
       "stats": {
-        "stars": 4747,
-        "forks": 445,
-        "openIssues": 219,
+        "stars": 4769,
+        "forks": 446,
+        "openIssues": 222,
         "pushedAt": "2026-10-30T08:26:32Z",
         "createdAt": "2026-08-07T16:04:00Z"
       },
